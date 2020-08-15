@@ -20,7 +20,7 @@ pipeline {
                 sh 'mvn checkstyle:checkstyle'
             }
             post {
-
+                sh 'echo Hello'
             }
         }
         stage('Test') {
