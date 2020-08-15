@@ -20,7 +20,9 @@ pipeline {
                 sh 'mvn checkstyle:checkstyle'
             }
             post {
-                sh 'echo Hello'
+                always {
+                    echo 'I will always say Hello again!'
+                }
             }
         }
         stage('Test') {
