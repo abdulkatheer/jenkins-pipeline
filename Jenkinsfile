@@ -12,12 +12,12 @@ pipeline {
         }
         stage('Compile') {
             steps {
-                sh 'mvn clean compile'
+                bat 'mvn clean compile'
             }
         }
         stage('StaticCodeAnalysis') {
             steps {
-                sh 'mvn checkstyle:checkstyle'
+                bat 'mvn checkstyle:checkstyle'
             }
             post {
                 always {
@@ -27,12 +27,12 @@ pipeline {
         }
         stage('Test') {
             steps {
-                sh 'mvn test'
+                bat 'mvn test'
             }
         }
         stage('Package') {
             steps {
-                sh 'mvn package'
+                bat 'mvn package'
             }
         }
     }
