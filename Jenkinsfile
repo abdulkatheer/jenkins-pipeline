@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent {label 'win-slave'}
     tools {
         maven 'Maven 3'
         jdk 'Java 1.8'
