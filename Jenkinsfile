@@ -35,5 +35,11 @@ pipeline {
                 sh 'mvn package'
             }
         }
+		stage('Deploy') {
+			steps {
+				sh 'docker build -t pipeline-demo:$BUILD_NUMBER .'
+				sh 'docker run -itd -p 80:8080 pipeline-demo:$BUILD_NUMBER
+			}
+		}
     }
 }
