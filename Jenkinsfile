@@ -1,5 +1,5 @@
 pipeline {
-    agent {label 'win-slave'}
+    agent {label 'linux-slave'}
     tools {
         maven 'Maven 3'
         jdk 'Java 1.8'
@@ -12,12 +12,12 @@ pipeline {
         }
         stage('Compile') {
             steps {
-                bat 'mvn clean compile'
+                sh 'mvn clean compile'
             }
         }
         stage('StaticCodeAnalysis') {
             steps {
-                bat 'mvn checkstyle:checkstyle'
+                sh 'mvn checkstyle:checkstyle'
             }
             post {
                 always {
@@ -27,13 +27,19 @@ pipeline {
         }
         stage('Test') {
             steps {
-                bat 'mvn test'
+                sh 'mvn test'
             }
         }
         stage('Package') {
             steps {
-                bat 'mvn package'
+                sh 'mvn package'
             }
         }
+		stage('Deploy') {
+			steps {
+				sh 'docker build -t pipeline-demo:$BUILD_NUMBER .'
+				sh 'docker run -itd -p 80:8080 pipeline-demo:$BUILD_NUMBER
+			}
+		}
     }
 }
